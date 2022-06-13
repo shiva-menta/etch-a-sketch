@@ -1,6 +1,6 @@
 
 const drawingContainer = document.querySelector('.grid-container');
-let defaultSize = 250;
+let defaultSize = 500;
 let mouseDownStatus = false;
 let isMarker = true; // true if marker mode, false if eraser mode
 let isRainbow = false;
@@ -55,6 +55,13 @@ function scaledDivSize(size){
     return 'height: ' + pixelFloat + 'px; width: ' + pixelFloat + 'px'
 }
 
+function resetAllButtonStatus() {
+    const controlButtons = document.querySelectorAll('.control-btn');
+    controlButtons.forEach((btn) => {
+        btn.setAttribute('style', 'opacity: 0.5');
+    });
+}
+
 createGrid(50);
 
 var slider = document.getElementById("sizeSliderRange");
@@ -65,18 +72,33 @@ const colorBtn = document.getElementById('single-color');
 colorBtn.addEventListener('click', () => {
     isMarker = true;
     isRainbow = false;
+    resetAllButtonStatus();
+    colorBtn.setAttribute('style', 'opacity: 1');
 });
 
 const clearBtn = document.getElementById('clear');
-clearBtn.addEventListener('click', () => clearGrid());
+clearBtn.addEventListener('click', () => {
+    clearGrid();
+    clearBtn.setAttribute('style', 'opacity: 1');
+    setTimeout(function(){
+        clearBtn.setAttribute('style', 'opacity: 0.5');
+    }, 200); 
+    
+});
 
 const eraserBtn = document.getElementById('eraser');
-eraserBtn.addEventListener('click', () => (isMarker = false));
+eraserBtn.addEventListener('click', () => {
+    isMarker = false;
+    resetAllButtonStatus();
+    eraserBtn.setAttribute('style', 'opacity: 1');
+});
 
 const rainbowBtn = document.getElementById('rainbow-color');
 rainbowBtn.addEventListener('click', () => {
     isRainbow = true;
     isMarker = true;
+    resetAllButtonStatus();
+    rainbowBtn.setAttribute('style', 'opacity: 1');
 });
 
 slider.oninput = function() {

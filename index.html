@@ -13,17 +13,21 @@
     </header>
     <div class="drawing-pane">
         <div class="controls">
-            <label for="colorpicker">Color Picker:</label>
-            <input type="color" id="colorpicker" value="#0000ff">
+            <div class="color-picker-container">
+                <label for="colorpicker">Color Picker:</label>
+                <input type="color" id="colorpicker" value="#0000ff">
+            </div>
             <button class="control-btn" id="single-color">Single Color</button>
             <button class="control-btn" id="rainbow-color">Rainbow Color</button>
             <button class="control-btn" id="eraser">Eraser</button>
             <button class="control-btn" id="clear">Clear</button>
-            <div id="size-output">50 x 50</div>
+            <div class="size-slider-container">
+                <div id="size-output">50 x 50</div>
             <div class="slide-container">
                 <input type="range" min="1" max="100" value="50" class="slider" 
                     id="sizeSliderRange">
-              </div>
+            </div>
+            </div>
         </div>
         <div class="grid-container"></div>
     </div>

@@ -11,11 +11,10 @@ body {
     font-family: Verdana, Arial, sans-serif;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     margin: 0px;
+    color: white;
+    min-height: 100vh;
 }
-
-
 
 
 header {
@@ -34,6 +33,26 @@ header {
 
 .controls {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 30vw;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.control-btn {
+    background-color: rgb(0, 0, 0);
+    opacity: 0.5;
+    font-family: Verdana, Arial, sans-serif;
+    color: white;
+    padding: 20px 20px;
+    border-radius: 10px;
+    min-width: 200px;
+}
+
+#single-color {
+    opacity: 1;
 }
 
 .slide-container {
@@ -63,5 +82,6 @@ footer {
     text-align: center;
     font-weight: 700;
     padding: 10px;
+    margin-top: auto;
 }
 
