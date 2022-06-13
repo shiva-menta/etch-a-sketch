@@ -12,7 +12,13 @@
     <header>Etch-A-Sketch</h1>
     </header>
     <div class="drawing-pane">
-        <div class="controls"></div>
+        <div class="controls">
+            <div id="size-output">50 x 50</div>
+            <div class="slide-container">
+                <input type="range" min="1" max="100" value="50" class="slider" 
+                    id="sizeSliderRange">
+              </div>
+        </div>
         <div class="grid-container"></div>
     </div>
     <footer>Created by Shiva Menta.</footer>
