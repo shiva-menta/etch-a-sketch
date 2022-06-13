@@ -1,7 +1,9 @@
 
 const drawingContainer = document.querySelector('.grid-container');
 let defaultSize = 250;
-let mouseStatus = false;
+let mouseDownStatus = false;
+let isMarker = true; // true if marker mode, false if eraser mode
+let isRainbow = false;
 
 function createGrid(size=50) {
     drawingContainer.setAttribute('style', 'grid-template-columns: ' + 
@@ -19,17 +21,33 @@ function createGrid(size=50) {
     const drawingDivs = document.querySelectorAll('.grid-item');
     drawingDivs.forEach((squareDiv) => {
         squareDiv.addEventListener('mouseover', () => {
-            if (mouseStatus) {
-                squareDiv.setAttribute('style', 'background-color: black');
+            if (mouseDownStatus && isMarker) {
+                squareDiv.setAttribute('style', 'background-color: ' + getCurrentColor());
+            } else if (mouseDownStatus && !isMarker) {
+                squareDiv.setAttribute('style', 'background-color: white');
             }
         });
         squareDiv.addEventListener('mousedown', () => {
-            mouseStatus = true;
+            mouseDownStatus = true;
         });
         squareDiv.addEventListener('mouseup', () => {
-            mouseStatus = false;
+            mouseDownStatus = false;
         });
     });
+}
+
+function getCurrentColor() {
+    if (isRainbow) {
+        return "#" + ((1<<24)*Math.random() | 0).toString(16);
+    } else {
+        const colorPicker = document.getElementById('colorpicker');
+        return colorPicker.value;
+    }
+}
+
+function clearGrid() {
+    drawingContainer.innerHTML = '';
+    createGrid(slider.value);
 }
 
 function scaledDivSize(size){
@@ -43,8 +61,27 @@ var slider = document.getElementById("sizeSliderRange");
 var sizeOutput = document.getElementById("size-output");
 sizeOutput.innerHTML = slider.value + ' x ' + slider.value;
 
+const colorBtn = document.getElementById('single-color');
+colorBtn.addEventListener('click', () => {
+    isMarker = true;
+    isRainbow = false;
+});
+
+const clearBtn = document.getElementById('clear');
+clearBtn.addEventListener('click', () => clearGrid());
+
+const eraserBtn = document.getElementById('eraser');
+eraserBtn.addEventListener('click', () => (isMarker = false));
+
+const rainbowBtn = document.getElementById('rainbow-color');
+rainbowBtn.addEventListener('click', () => {
+    isRainbow = true;
+    isMarker = true;
+});
+
 slider.oninput = function() {
     sizeOutput.innerHTML = slider.value + ' x ' + slider.value;
     drawingContainer.innerHTML = '';
     createGrid(slider.value);
 }
+
