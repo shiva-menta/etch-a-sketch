@@ -1,6 +1,7 @@
 
 const drawingContainer = document.querySelector('.grid-container');
 let defaultSize = 250;
+let mouseStatus = false;
 
 function createGrid(size=50) {
     drawingContainer.setAttribute('style', 'grid-template-columns: ' + 
@@ -18,8 +19,16 @@ function createGrid(size=50) {
     const drawingDivs = document.querySelectorAll('.grid-item');
     drawingDivs.forEach((squareDiv) => {
         squareDiv.addEventListener('mouseover', () => {
-            squareDiv.setAttribute('style', 'background-color: black');
-        })
+            if (mouseStatus) {
+                squareDiv.setAttribute('style', 'background-color: black');
+            }
+        });
+        squareDiv.addEventListener('mousedown', () => {
+            mouseStatus = true;
+        });
+        squareDiv.addEventListener('mouseup', () => {
+            mouseStatus = false;
+        });
     });
 }
 
